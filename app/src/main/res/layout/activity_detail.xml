@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:inputType="text"
+        android:padding="16dp"
+        android:layout_margin="16dp"
+        android:textAppearance="?attr/textAppearanceSubtitle2"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/etDescription"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Title" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:inputType="text"
+        android:padding="16dp"
+        android:layout_margin="16dp"
+        android:textAppearance="?attr/textAppearanceSubtitle2"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/etTitle"
+        tools:text="Description" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSave"
+        app:layout_constraintTop_toBottomOf="@id/etDescription"
+        android:layout_margin="16dp"
+        android:text="SAVE"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
