@@ -1,6 +1,7 @@
 package com.example.mynotesexample
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 /*****
  * Proyect: MyNotesExample
@@ -16,10 +17,11 @@ import androidx.room.*
     @Dao
     interface NotesDao {
         @Query("SELECT * FROM NoteEntity")
-        suspend fun getAll(): List<NoteEntity>
+        fun getAll(): Flow<List<NoteEntity>>
 
         @Query("SELECT * FROM NoteEntity WHERE id = :id ")
-        suspend fun getById(id: Int): NoteEntity
+        //suspend fun getById(id: Int): NoteEntity
+        fun getById(id: Int): Flow<NoteEntity>
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         suspend fun insert(note: NoteEntity)
