@@ -1,14 +1,13 @@
-package com.example.mynotesexample
+package com.example.mynotesexample.ui.main.adapter
 
-import android.content.Context
-import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mynotesexample.NoteEntity
+import com.example.mynotesexample.R
 import com.example.mynotesexample.databinding.ItemNotesBinding
 
 /*****
@@ -25,11 +24,9 @@ class NoteAdapter(
     private val onNoteDelete: (NoteEntity) -> Unit,
     ): ListAdapter<NoteEntity, RecyclerView.ViewHolder>(NoteDiffCallback()) {
 
-    private lateinit var mContext: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        mContext = parent.context
-        val view = LayoutInflater.from(mContext).inflate(R.layout.item_notes, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_notes, parent, false)
         return ViewHolder(view)
     }
 

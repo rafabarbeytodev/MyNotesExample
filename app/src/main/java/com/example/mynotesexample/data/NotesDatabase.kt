@@ -1,7 +1,8 @@
-package com.example.mynotesexample
+package com.example.mynotesexample.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.mynotesexample.NoteEntity
 
 /*****
  * Proyect: MyNotesExample

@@ -2,6 +2,8 @@ package com.example.mynotesexample
 
 import android.app.Application
 import androidx.room.Room
+import com.example.mynotesexample.data.NoteDatabase
+import dagger.hilt.android.HiltAndroidApp
 
 /*****
  * Proyect: MyNotesExample
@@ -12,7 +14,7 @@ import androidx.room.Room
  *
  * All rights reserved 2023.
  *****/
-
+@HiltAndroidApp
 class NoteApplication : Application() {
 
     lateinit var noteDatabase: NoteDatabase

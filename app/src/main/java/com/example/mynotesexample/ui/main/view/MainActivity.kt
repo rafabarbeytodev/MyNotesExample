@@ -1,4 +1,4 @@
-package com.example.mynotesexample.main.view
+package com.example.mynotesexample.ui.main.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,26 +6,31 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.mynotesexample.detail.view.DetailActivity
-import com.example.mynotesexample.NoteAdapter
+import com.example.mynotesexample.ui.detail.view.DetailActivity
+import com.example.mynotesexample.ui.main.adapter.NoteAdapter
 import com.example.mynotesexample.NoteApplication
-import com.example.mynotesexample.NoteDatabase
+import com.example.mynotesexample.data.NoteDatabase
 import com.example.mynotesexample.databinding.ActivityMainBinding
-import com.example.mynotesexample.main.MainViewModel
-import com.example.mynotesexample.main.MainViewModelFactory
+import com.example.mynotesexample.ui.main.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mAdapter: NoteAdapter
     private lateinit var database: NoteDatabase
 
     /** Se genera la instancia al ViewModel usando la Factory */
-    private val vm by viewModels<MainViewModel> {
-        MainViewModelFactory(
-            (application as NoteApplication).noteDatabase
-        )
-    }
+    private val vm by viewModels<MainViewModel>()
+    /**Podemos quitar esto porque lo crea DaggerHilt
+    {
+        val notesDatabase = (application as NoteApplication).noteDatabase
+        val notesDataSource = NotesRoomDataSource(notesDatabase.notesDao())
+        val notesRepository = NotesRepository(notesDataSource)
+        val getCurrentNotesUseCase = GetCurrentNotesUseCase(notesRepository)
+        val deleteNotesUseCase = DeleteNoteUseCase(notesRepository)
+        MainViewModelFactory(getCurrentNotesUseCase,deleteNotesUseCase)
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

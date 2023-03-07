@@ -1,6 +1,7 @@
-package com.example.mynotesexample
+package com.example.mynotesexample.data
 
 import androidx.room.*
+import com.example.mynotesexample.NoteEntity
 import kotlinx.coroutines.flow.Flow
 
 /*****
@@ -20,8 +21,8 @@ import kotlinx.coroutines.flow.Flow
         fun getAll(): Flow<List<NoteEntity>>
 
         @Query("SELECT * FROM NoteEntity WHERE id = :id ")
-        //suspend fun getById(id: Int): NoteEntity
-        fun getById(id: Int): Flow<NoteEntity>
+        suspend fun getById(id: Int): NoteEntity
+        //fun getById(id: Int): Flow<NoteEntity>
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         suspend fun insert(note: NoteEntity)

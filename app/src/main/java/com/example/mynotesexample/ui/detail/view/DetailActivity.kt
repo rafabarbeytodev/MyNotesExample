@@ -1,4 +1,4 @@
-package com.example.mynotesexample.detail.view
+package com.example.mynotesexample.ui.detail.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,22 +7,25 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.mynotesexample.NoteApplication
 import com.example.mynotesexample.NoteEntity
 import com.example.mynotesexample.databinding.ActivityDetailBinding
-import com.example.mynotesexample.detail.DetailViewModel
-import com.example.mynotesexample.detail.DetailViewModelFactory
+import com.example.mynotesexample.ui.detail.viewmodel.DetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
 
-
-
-    private val vm: DetailViewModel by viewModels {
+    private val vm: DetailViewModel by viewModels()
+    /** Esto sobra con Dagger Hilt
+    {
         val database = (application as NoteApplication).noteDatabase
         val noteId = intent.getIntExtra(EXTRA_NOTE_ID,0)
-        DetailViewModelFactory(database, noteId)
-    }
+        val notesDataSource = NotesRoomDataSource(database.notesDao())
+        val notesRepository = NotesRepository(notesDataSource)
+        val saveNoteUseCase = SaveNoteUseCase(notesRepository)
+        val getNoteUseCase = GetNoteByIdUseCase(notesRepository)
+        DetailViewModelFactory(getNoteUseCase,saveNoteUseCase, noteId)
+    }*/
 
     companion object {
         const val EXTRA_NOTE_ID = "note_id"
@@ -42,19 +45,16 @@ class DetailActivity : AppCompatActivity() {
             btnSave.setOnClickListener {
                 val title = etTitle.text.toString()
                 val description = etDescription.text.toString()
-                vm.save(NoteEntity(
-                    id = 0,
-                    title = title,
-                    description = description
-                ))
+                vm.save(title,description)
                 finish()
             }
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED){
                     vm.state.collect{ note->
-                        if(note != null)
+                        if(note != null){
                         etTitle.setText(note.title)
                         etDescription.setText(note.description)
+                        }
                     }
                 }
             }
